@@ -43,6 +43,6 @@ build:
     paths:
       - tinkey
       - tinkey.arm
-      - horizon-cli.exe
+      - tinkey.exe
   dependencies:
     - test
