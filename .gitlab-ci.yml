@@ -36,13 +36,13 @@ build:
   stage: build
   script:
     - apt-get update && apt-get install -y rpm curl git wget make sudo wixl msitools perl
-    - GOOS=linux GOARCH=amd64 go build -ldflags "-extldflags '-static'" -trimpath -o $CI_PROJECT_DIR/tinkey
-    - GOOS=linux GOARCH=arm64 go build -ldflags "-extldflags '-static'" -trimpath -o $CI_PROJECT_DIR/tinkey.arm
-    - GOOS=windows GOARCH=amd64 go build -ldflags "-extldflags '-static'" -trimpath -o $CI_PROJECT_DIR/tinkey.exe
+    - GOOS=linux GOARCH=amd64 go build -ldflags "-extldflags '-static'" -trimpath -o $CI_PROJECT_DIR/build/tinkey-linux-amd64
+    - GOOS=linux GOARCH=arm64 go build -ldflags "-extldflags '-static'" -trimpath -o $CI_PROJECT_DIR/build/tinkey-linux-arm64
+    - GOOS=windows GOARCH=amd64 go build -ldflags "-extldflags '-static'" -trimpath -o $CI_PROJECT_DIR/build/tinkey.exe
+    - GOOS=darwin GOARCH=arm64 go build -ldflags "-extldflags '-static'" -trimpath -o $CI_PROJECT_DIR/build/tinkey-darwin-arm64
+    - GOOS=darwin GOARCH=amd64 go build -ldflags "-extldflags '-static'" -trimpath -o $CI_PROJECT_DIR/build/tinkey-darwin-amd64
   artifacts:
     paths:
-      - tinkey
-      - tinkey.arm
-      - tinkey.exe
+      - build/
   dependencies:
     - test
