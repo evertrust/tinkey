@@ -23,3 +23,4 @@ build: pre-run
 	GOOS=darwin GOARCH=arm64 go build -ldflags "-extldflags '-static'" -trimpath -o ./build/tinkey-darwin-arm64
 	GOOS=darwin GOARCH=amd64 go build -ldflags "-extldflags '-static'" -trimpath -o ./build/tinkey-darwin-amd64
 	mv ./build /tmp/build
+	zip -r /tmp/build.zip /tmp/build
