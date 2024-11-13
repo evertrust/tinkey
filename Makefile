@@ -7,9 +7,9 @@ UNAME_S := $(shell uname -s)
 REPO_NAME := tinkey
 
 pre-run:
-	mkdir -p $$GOPATH/src/$(dirname )
-	ln -svf . $$GOPATH/src/$REPO_NAME
-	cd $$GOPATH/src/$REPO_NAME
+	mkdir -p $$HOME/go/src/$(dirname )
+	ln -svf . $$HOME/go/src/${REPO_NAME}
+	cd $$HOME/go/src/${REPO_NAME}
 
 test: pre-run
 	go fmt $$(go list ./... | grep -v /vendor/)
