@@ -1,0 +1,30 @@
+name: Upload Release
+
+on:
+  push:
+    tags: [ "v*" ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'
+
+      - name: Install dependencies
+        run : sudo apt update && sudo apt install -y rpm curl git wget make sudo wixl msitools perl
+
+      - name: Build project
+        run: make build
+
+      - name: Upload release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: /tmp/build.zip
+          make_latest: true
+
