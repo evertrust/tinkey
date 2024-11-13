@@ -1,0 +1,49 @@
+name: Test & Build
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ${{ vars.RUNS_ON }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.16"
+
+      - name: Build project
+        run: make test
+
+  build:
+    runs-on: ${{ vars.RUNS_ON }}
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.16"
+
+      - name: Install dependencies
+        run : apt update && apt install -y rpm curl git wget make sudo wixl msitools perl
+
+      - name: Build project
+        run: make build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: /tmp/build
