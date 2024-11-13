@@ -37,7 +37,7 @@ jobs:
           go-version-file: 'go.mod'
 
       - name: Install dependencies
-        run : apt update && apt install -y rpm curl git wget make sudo wixl msitools perl
+        run : sudo apt update && sudo apt install -y rpm curl git wget make sudo wixl msitools perl
 
       - name: Build project
         run: make build
