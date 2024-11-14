@@ -6,6 +6,8 @@ UNAME_S := $(shell uname -s)
 
 REPO_NAME := tinkey
 
+
+
 test:
 	go fmt $$(go list ./... | grep -v /vendor/)
 	go vet $$(go list ./... | grep -v /vendor/)
